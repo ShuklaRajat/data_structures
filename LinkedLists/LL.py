@@ -1,8 +1,13 @@
+#creates a simple node having value as dataval and nextval field which points to None (or NULL) initially.
+# +_________+_________+
+# | dataval | nextval |
+# +_________+_________+
 class Node:
         def __init__ (self, dataval = None):
                 self.dataval = dataval
                 self.nextval = None
 
+# The below class performs all the SLL (Singly Linked List) operations.
 class SLL:
         def __init__(self):
                 self.head = None
@@ -15,15 +20,17 @@ class SLL:
                         print(currPoint.dataval)
                         currPoint = currPoint.nextval
 
+        #inserting at the begining of SLL
         def insertAtBeginning(self, newData):
                 newNode = Node(newData)
                 newNode.nextval = self.head
                 self.head = newNode
 
+        #inserting at the begining of SLL
         def insertAtEnd(self, newData):
                 newNode = Node(newData)
 
-                if self.head is None:               #base condition
+                if self.head is None:               #base condition.
                         self.head = newNode
                         return
 
@@ -34,6 +41,7 @@ class SLL:
 
                 currPoint.nextval = newNode
 
+        #inserting value newData after the afterValue (given as input)
         def insertAfter(self, afterValue, newData):
                 newNode = Node(newData)
 
@@ -45,6 +53,7 @@ class SLL:
                 newNode.nextval = currPoint.nextval
                 currPoint.nextval = newNode
 
+        #inserting value newData before the beforeValue (given as input)
         def insertBefore(self, beforeValue, newData):
                 newNode = Node(newData)
 
@@ -65,14 +74,23 @@ class SLL:
                 prevNode.nextval = newNode
 
 
-
+#instantiate
 sllInit = SLL()
+
+#create independent nodes
 n1 = Node("10")
 n2 = Node("11")
 n3 = Node("12")
+
+#point head of the SLL to the first node
 sllInit.head = n1
+
+#first node's nextVal points to the second node
 n1.nextval = n2
+# ... and so on.
 n2.nextval = n3
+
+#Testing the operations. (uncomment the code based on your use case).
 
 #Traverse SLL
 # sllInit.printSLL()
