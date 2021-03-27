@@ -1,7 +1,7 @@
 #creates a simple node having value as dataval and nextval, and prevval field which points to None (or NULL) initially.
 # But eventually prevval points to the previos node and nextval points to the next node.
 # +_________+_________+_________+
-# | prevval | dataval | nextval |
+# |  prev   | dataval |  next   |
 # +_________+_________+_________+
 class Node:
         def __init__ (self, dataval = None):
@@ -17,13 +17,55 @@ class DLL:
 
         #Traversing a DLL
         def printDLL(self):
-                currPoint = self.head
+            currPoint = self.head
 
-                while currPoint:
-                        print(currPoint.dataval)
+            while currPoint:
+                    print(currPoint.dataval)
+                    currPoint = currPoint.next
+
+        def printReverseDLL(self):
+            self.head, self.tail = self.tail, self.head
+
+            currPoint = self.head
+
+            while True:
+                print(currPoint.dataval)
+                currPoint = currPoint.prev
+                if currPoint == self.tail:
+                    print(currPoint.dataval)
+                    break
+
+        def insertAfter(self, afterValue, newData):
+            newNode = Node(newData)
+
+            currPoint = self.head
+            while currPoint.next:
+                if currPoint.dataval == afterValue:
+                    break
+                currPoint = currPoint.next
+            newNode.next = currPoint.next
+            currPoint.next = newNode
+
+        #inserting value newData before the beforeValue (given as input)
+        def insertBefore(self, beforeValue, newData):
+                newNode = Node(newData)
+
+                prevNode = self.head
+
+                if prevNode is None:
+                        return newNode
+
+                currPoint = prevNode
+
+                while currPoint.next:
+                        if currPoint.dataval == beforeValue:
+                                break
+                        prevNode = currPoint
                         currPoint = currPoint.next
 
-        # def printReverseDLL(self):
+                newNode.next = currPoint
+                prevNode.next = newNode
+
 
 
 #instantiate
@@ -45,8 +87,15 @@ n2.prev = n1
 n2.next = n3
 n3.prev = n2
 
+n3.next = dllInit.tail
+dllInit.tail = n3
+#Above operations generates the initial DLL.
+
+
 #Testing the operations. (uncomment the code based on your use case).
 
+dllInit.insertAfter("12", "12.5")
+dllInit.insertBefore("12", "11.5")
 #Traverse DLL
 dllInit.printDLL()
 
